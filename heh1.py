@@ -3,9 +3,9 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route('/list_prof/<sign>')
-def training(sign):
-    return render_template('training.html', sign=sign)
+@app.route('/list_prof/<list>')
+def main(list):
+    return render_template('base.html', list=list)
 
 
 if __name__ == '__main__':

@@ -1,10 +1,20 @@
-{% extends "training.html" %}
+{% extends "base.html" %}
 {% block content %}
-    {% if 'инженер' in prof or 'строитель' in prof %}
-      <h3>Инженерные тренажёры</h3>
-        <img src="/тренировки в полёте/static/img/ing.png">
-    {% else %}
-        <h3>Научные симуляторы</h3>
-        <img src="/тренировки в полёте/static/img/sci.png">
-    {% endif %}
+{% set prof_list =['инженер-исследователь', 'пилот', 'строитель', 'экзобиолог', 'врач', 'инженер по терраформированию',
+'климатолог', 'специалист по радиационной защите', 'астрогеолог', 'гляциолог', 'инженер жизнеобеспечения',
+'метеролог', 'оператор марсохода', 'киберинженер', 'штурман', 'пилот дронов'] %}
+
+{% if 'ol' == list %}
+<ol>
+    {% for prof in prof_lost %}
+    <li>prof</li>
+    {% endfor %}
+</ol>
+{% elif 'ul' == list %}
+<ul>
+    {% for prof in prof_lost %}
+    <li>prof</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

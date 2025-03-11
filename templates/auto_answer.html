@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% set list = ['Фамилия', 'Имя', 'Образование', 'Пол', 'Мотивация', 'Готовы остаться на Марсе?'] %}
+    {% for i in info %}
+        {{ list[loop.index] }}: {{ info[d] }} <br />
+    {% endfor %}
+{% endblock %}

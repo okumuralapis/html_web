@@ -15,7 +15,7 @@ d = {
 @app.route('/<title>')
 @app.route('/index/<title>')
 def index(title):
-    return render_template('base.html', title=title)
+    return render_template('base.html', title=d["title"])
 
 @app.route('/answer')
 @app.route('/auto_answer')

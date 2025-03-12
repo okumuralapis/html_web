@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h5>Офомление каюты</h5>
+  <h5>Цвет стен&nbsp;&nbsp;&nbsp;&nbsp;Эмблема</h5>
+  {% if age < 21 %}
+      <img src="static/img/small.jpeg">
+  {% else %}
+      <img src="static/img/big.png">
+  {% endif %}
+{% endblock %}

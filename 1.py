@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+import json
+from random import randint
 
 app = Flask(__name__)
 
@@ -9,9 +11,11 @@ def index(title):
     return render_template('base.html', title=title)
 
 
-@app.route('/table/<sex>/<age>')
-def distr(sex, age):
-    return render_template('desic.html', sex=sex, age=int(age))
+@app.route('/member')
+def member():
+    with open("templates/heros.json", "rt", encoding="utf8") as f:
+        news_list = json.loads(f.read())
+    return render_template('heros.html', members=news_list['stuff'][randint(0, 2)])
 
 
 if __name__ == '__main__':

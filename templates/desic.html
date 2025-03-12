@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h4>Офомление каюты</h4>
-  <h4>Цвет стен&nbsp;&nbsp;&nbsp;&nbsp;Эмблема</h4>
-  {% if age < 21 %}
-      <div><img src="/static/img/small.png"></div>
-  {% else %}
-      <div><img src="/static/img/big.png"></div>
-  {% endif %}
+  <h2>Оформление каюты</h2>
+  <h3>Эмблема&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Цвет стен</h3>
+    {% if age < 21 %}
+        <img src="/static/img/small.jpg"
+             alt="здесь должна была быть картинка, но не нашлась" width="240" height="240">
+        {% if sex == "male" %}
+            <img src="/static/img/blue_small.jpg" width="240" height="240">
+        {% else %}
+            <img src="/static/img/purple_small.jpg" width="240" height="240">
+        {% endif %}
+    {% else %}
+        <img src="/static/img/big.png" width="240" height="240">
+        {% if sex == "male" %}
+            <img src="/static/img/blue_big.jpg" width="240" height="240">
+        {% else %}
+            <img src="/static/img/purple_big.jpg" width="240" height="240">
+        {% endif %}
+    {% endif %}
 {% endblock %}

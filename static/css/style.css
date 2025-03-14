@@ -2,8 +2,14 @@ h1 {
 position: relative;
 font-weight:bold;
 }
+h4 {
+color: grey;
+margin-left: 20px;
+}
 .carousel-item {
 position: relative;
+height: 32rem;
+background-position: center;
 }
 .container {
 position: absolute;

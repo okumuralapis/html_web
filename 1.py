@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 import json
-from random import randint
 
 app = Flask(__name__)
 
@@ -15,7 +14,7 @@ def index(title):
 def member():
     with open("templates/heros.json", "rt", encoding="utf8") as f:
         news_list = json.loads(f.read())
-    return render_template('heros.html', members=news_list['stuff'][randint(0, 2)])
+    return render_template('heros.html', members=news_list["stuff"])
 
 
 if __name__ == '__main__':

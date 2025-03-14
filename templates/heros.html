@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>{{ members["name"] }}</h2>
-    <img src=members["img"]>
-    {% sorted(members["prof"]) %}
+    {% set a = members|random %}
+    <h2>{{ a["name"] }}</h2>
+    <h2><img src={{ a["img"] }} ></h2>
+    {{ a["prof"]|sort|join(', ') }}
 {% endblock %}

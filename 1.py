@@ -1,8 +1,4 @@
-# 1 доп html
-from fileinput import filename
-
-from flask import Flask, request, url_for, render_template
-from PIL import Image
+from flask import Flask, request, url_for
 
 app = Flask(__name__)
 

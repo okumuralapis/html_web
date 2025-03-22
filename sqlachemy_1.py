@@ -1,24 +1,24 @@
 from data import db_session
-from data.departments import Department
 from data.users import User
 from data.jobs import Job
-from data.departments import Department
-
 import sqlalchemy
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
-db_session.global_init('db/users.sqlite')
-db_sess = db_session.create_session()
 
-user = db_sess.query(User).filter(User.id == 1).first()
-dep = Department(title='Медицинский раздел', chief=2, members=[1, 2], email='medicine@mars.org')
-user.dep.append(dep)
-db_sess.commit()
+def main():
+    db_session.global_init('db/users.sqlite')
+    app.run()
 
-qe = db_sess.query(User).select_from(User).join(Job, User.id == Job.team_leader,
-                                                isouter=True).filter(Job.work_size > 25, Department.id == 1)
-for i in qe:
-    print(i.surname, i.name)
+
+@app.route("/")
+def index():
+    db_sess = db_session.create_session()
+    info = db_sess.query(Job, User).join(User).all()
+    return render_template('index.html', info=info)
+
+
+if __name__ == '__main__':
+    main()

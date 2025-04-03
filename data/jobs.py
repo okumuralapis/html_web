@@ -1,8 +1,8 @@
 import datetime
 import sqlalchemy
+from .db_session import SqlAlchemyBase
 from sqlalchemy import orm
 
-from .db_session import SqlAlchemyBase
 
 class Job(SqlAlchemyBase):
     __tablename__ = 'jobs'
@@ -17,4 +17,5 @@ class Job(SqlAlchemyBase):
     start_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     end_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, nullable=False)
+
     user = orm.relationship('User')

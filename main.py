@@ -4,7 +4,7 @@ from data.jobs import Job
 from forms.user import RegisterForm_user, LoginForm_user
 from forms.job import RegisterForm_job
 import sqlalchemy
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, abort, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -81,7 +81,7 @@ def logout():
     return redirect("/")
 
 
-@app.route('/register_job', methods=['GET', 'POST'])
+@app.route('/jobs', methods=['GET', 'POST'])
 def reqister_job():
     form = RegisterForm_job()
     if form.validate_on_submit():
@@ -90,17 +90,14 @@ def reqister_job():
             return render_template('reg_job.html', title='Регистрация',
                                    form=form,
                                    message="Такая работа уже есть")
-        job = Job(
-            team_leader=form.team_leader.data,
-            job=form.job.data,
-            work_size=form.work_size.data,
-            collaborators=form.collaborators.data,
-            is_finished=form.is_finished.data
-        )
-        db_sess.add(job)
-        db_sess.commit()
+        job = Job()
+        job.team_leader = form.team_leader.data
+        job.job = form.job.data
+        job.work_size = form.work_size.data
+        job.collaborators = form.collaborators.data
+        job.is_finished = form.is_finished.data
         return redirect('/')
-    return render_template('reg_job.html', title='Регистрация работы', form=form)
+    return render_template('reg_job.html', title='Добавление работы', form=form)
 
 
 if __name__ == '__main__':

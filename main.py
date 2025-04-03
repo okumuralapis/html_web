@@ -1,7 +1,8 @@
 from data import db_session
 from data.users import User
 from data.jobs import Job
-from forms.user import RegisterForm, LoginForm
+from forms.user import RegisterForm_user, LoginForm_user
+from forms.job import RegisterForm_job
 import sqlalchemy
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -32,7 +33,7 @@ def index():
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
-    form = RegisterForm()
+    form = RegisterForm_user()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Регистрация',
@@ -60,7 +61,7 @@ def reqister():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = LoginForm_user()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
@@ -78,6 +79,28 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+@app.route('/register_job', methods=['GET', 'POST'])
+def reqister_job():
+    form = RegisterForm_job()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        if db_sess.query(Job).filter(Job.job == form.job.data).first():
+            return render_template('reg_job.html', title='Регистрация',
+                                   form=form,
+                                   message="Такая работа уже есть")
+        job = Job(
+            team_leader=form.team_leader.data,
+            job=form.job.data,
+            work_size=form.work_size.data,
+            collaborators=form.collaborators.data,
+            is_finished=form.is_finished.data
+        )
+        db_sess.add(job)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('reg_job.html', title='Регистрация работы', form=form)
 
 
 if __name__ == '__main__':

@@ -1,33 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Works log</h1>
+<h1>Записи в блоге</h1>
 {% if current_user.is_authenticated %}
-    <a href="jobs" class="btn btn-secondary">Добавить работу</a>
+    <a href="news" class="btn btn-secondary">Добавить новость</a>
 {% endif %}
-{% for item in info%}
-<h2>Action # {{ item.Job.id }}</h2>
-<div class="row">
-    <div class="col-6 col-sm-4">Title of activity</div>
-    <div class="col-6 col-sm-4">{{ item.Job.job }}</div>
-    <div class="w-100 d-none d-md-block"></div>
-
-    <div class="col-6 col-sm-4">Team leader</div>
-    <div class="col-6 col-sm-4">{{ item.User.name }} {{ item.User.surname }}</div>
-    <div class="w-100 d-none d-md-block"></div>
-
-    <div class="col-6 col-sm-4">List of collaborators</div>
-    <div class="col-6 col-sm-4">{{ item.Job.collaborators }}</div>
-    <div class="w-100 d-none d-md-block"></div>
-
-    <div class="col-6 col-sm-4">Is finished</div>
-    {% if item.Job.is_finished %}
-    <div class="col-6 col-sm-4">Is finished</div>
-    {% else %}
-    <div class="col-6 col-sm-4">Is not finished</div>
-    {% endif %}
-    <div class="w-100 d-none d-md-block"></div>
-</div>
+{% for item in news%}
+<div class="col-md6 border rounded">
+    <h2>{{item.title}}</h2>
+    <div>
+        {{item.content}}
+    </div>
+    <div>
+        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+        {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/news/{{ item.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+    </div>
 </div>
 {% endfor %}
 {% endblock %}

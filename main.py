@@ -1,10 +1,11 @@
 from flask import Flask, render_template, redirect, request, abort
-from data import db_session
+from data import db_session, news_api
 from data.users import User
 from data.news import News
 from forms.user import RegisterForm, LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.news import NewsForm
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -20,6 +21,7 @@ def load_user(user_id):
 
 def main():
     db_session.global_init('db/blogs.db')
+    app.register_blueprint(news_api.blueprint)
     app.run()
 
 

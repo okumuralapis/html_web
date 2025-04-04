@@ -1,4 +1,5 @@
 from data import db_session
+from data.departments import Department
 from data.users import User
 from data.jobs import Job
 from forms.user import RegisterForm_user, LoginForm_user
@@ -25,6 +26,7 @@ def main():
 
 
 @app.route("/")
+@app.route("/jobs")
 def index():
     db_sess = db_session.create_session()
     info = db_sess.query(Job, User).join(User).all()
@@ -83,7 +85,7 @@ def logout():
     return redirect("/")
 
 
-@app.route('/job', methods=['GET', 'POST'])
+@app.route('/add_job', methods=['GET', 'POST'])
 def add_job():
     form = RegisterForm_job()
     if form.validate_on_submit():
@@ -154,6 +156,13 @@ def job_delete(id):
     else:
         abort(404)
     return redirect('/')
+
+
+@app.route("/department")
+def index_dep():
+    db_sess = db_session.create_session()
+    info = db_sess.query(User, Department).join(Department).all()
+    return render_template('index_dep.html', info=info)
 
 
 if __name__ == '__main__':

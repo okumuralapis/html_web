@@ -111,14 +111,14 @@ def edit_job(id):
     form = RegisterForm_job()
     if request.method == "GET":
         db_sess = db_session.create_session()
-        job = db_sess.query(Job).filter(Job.id == id,
-                                        Job.team_leader == current_user
+        job = db_sess.query(Job).filter(Job.id == id
                                         ).first()
         if job:
             form.job.data = job.job
             form.is_finished.data = job.is_finished
             form.work_size.data = job.work_size
             form.team_leader.data = job.team_leader
+            form.collaborators.data = job.collaborators
         else:
             abort(404)
     if form.validate_on_submit():
@@ -126,7 +126,7 @@ def edit_job(id):
         job = db_sess.query(Job).filter(Job.id == id,
                                         Job.user == current_user
                                         ).first()
-        if job:
+        if job and (current_user.id == 1 or current_user.id == job.team_leader):
             job.job = form.job.data
             job.team_leader = form.job.data
             job.work_size = form.work_size.data

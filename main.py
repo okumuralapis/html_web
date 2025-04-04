@@ -4,7 +4,7 @@ from data.jobs import Job
 from forms.user import RegisterForm_user, LoginForm_user
 from forms.job import RegisterForm_job
 import sqlalchemy
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request, flash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -31,6 +31,8 @@ def index():
     return render_template('index.html', info=info)
 
 
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm_user()
@@ -44,18 +46,20 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
-        user = User(
-            surname=form.surname.data,
-            name=form.name.data,
-            age=form.age.data,
-            position=form.position.data,
-            speciality=form.speciality.data,
-            address=form.address.data,
-            email=form.email.data)
+        user = User()
+        user.surname = form.surname.data
+        user.name = form.name.data
+        user.age = form.age.data
+        user.speciality = form.speciality.data
+        user.position = form.position.data
+        user.address = form.address.data
+        user.email = form.email.data
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
+    else:
+        print(form.errors)
     return render_template('register.html', title='Регистрация', form=form)
 
 

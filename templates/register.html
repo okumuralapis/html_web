@@ -76,6 +76,15 @@
             </p>
         {% endfor %}
     </p>
+     <p>
+        {{ form.password_again.label }}<br>
+        {{ form.password_again(class="form-control", type="password_again") }}<br>
+        {% for error in form.password_again.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

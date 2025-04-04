@@ -40,15 +40,7 @@
             </p>
         {% endfor %}
     </p>
-    <p>
-        {{ form.is_finished.label }}<br>
-        {{ form.is_finished(class="form-control", type="is_finished") }}<br>
-        {% for error in form.is_finished.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
+    <p>{{ form.is_finished }} {{ form.is_finished.label }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

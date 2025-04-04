@@ -4,7 +4,7 @@ from data.jobs import Job
 from forms.user import RegisterForm_user, LoginForm_user
 from forms.job import RegisterForm_job
 import sqlalchemy
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, abort
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -83,8 +83,8 @@ def logout():
     return redirect("/")
 
 
-@app.route('/register_job', methods=['GET', 'POST'])
-def reqister_job():
+@app.route('/job', methods=['GET', 'POST'])
+def add_job():
     form = RegisterForm_job()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -103,6 +103,43 @@ def reqister_job():
         db_sess.commit()
         return redirect('/')
     return render_template('reg_job.html', title='Регистрация работы', form=form)
+
+
+@app.route('/job/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_news(id):
+    form = RegisterForm_job()
+    if request.method == "GET":
+        db_sess = db_session.create_session()
+        job = db_sess.query(Job).filter(Job.id == id,
+                                          Job.team_leader == current_user
+                                        ).first()
+        if job:
+            form.job.data = job.job
+            form.is_finished.data = job.is_finished
+            form.work_size.data = job.work_size
+            form.team_leader.data = job.team_leader
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        job = db_sess.query(Job).filter(Job.id == id,
+                                        Job.user == current_user
+                                        ).first()
+        if job:
+            job.job = form.job.data
+            job.team_leader = form.job.data
+            job.work_size = form.work_size.data
+            job.collaborators = form.collaborators.data
+            job.is_finished = form.is_finished.data
+            db_sess.commit()
+            return redirect('/')
+        else:
+            abort(404)
+    return render_template('reg_job.html',
+                           title='Редактирование работы',
+                           form=form
+                           )
 
 
 if __name__ == '__main__':

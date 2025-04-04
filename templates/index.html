@@ -23,7 +23,7 @@
     <div class="col-6 col-sm-3">Is not finished</div>
     {% endif %}
 </div>
-{% if current_user.is_authenticated%}
+{% if current_user.is_authenticated and current_user == item.job %}
     <div>
         <a href="/job/{{ item.id }}" class="btn btn-warning">
             Change

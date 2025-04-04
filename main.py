@@ -112,7 +112,7 @@ def edit_news(id):
     if request.method == "GET":
         db_sess = db_session.create_session()
         job = db_sess.query(Job).filter(Job.id == id,
-                                          Job.team_leader == current_user
+                                        Job.team_leader == current_user
                                         ).first()
         if job:
             form.job.data = job.job
@@ -138,8 +138,7 @@ def edit_news(id):
             abort(404)
     return render_template('reg_job.html',
                            title='Редактирование работы',
-                           form=form
-                           )
+                           form=form)
 
 
 if __name__ == '__main__':

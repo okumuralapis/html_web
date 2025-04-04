@@ -4,7 +4,7 @@ from data.jobs import Job
 from forms.user import RegisterForm_user, LoginForm_user
 from forms.job import RegisterForm_job
 import sqlalchemy
-from flask import Flask, render_template, redirect, request, flash
+from flask import Flask, render_template, redirect, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
@@ -29,8 +29,6 @@ def index():
     db_sess = db_session.create_session()
     info = db_sess.query(Job, User).join(User).all()
     return render_template('index.html', info=info)
-
-
 
 
 @app.route('/register', methods=['GET', 'POST'])

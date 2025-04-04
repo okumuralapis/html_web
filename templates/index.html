@@ -9,19 +9,23 @@
 {% for item in info%}
 <h2>Action # {{ item.Job.id }}</h2>
 <div class="row">
-    <div class="col-6 col-sm-3 name">Title of activity</div>
-    <div class="col-6 col-sm-3 name">Team leader</div>
-    <div class="col-6 col-sm-3 name">List of collaborators</div>
-    <div class="col-6 col-sm-3 name">Is finished</div>
+    <div class="col-6 col-sm-2 name">Title of activity</div>
+    <div class="col-6 col-sm-2 name">Team leader</div>
+    <div class="col-6 col-sm-2 name">Duration</div>
+    <div class="col-6 col-sm-2 name">List of collaborators</div>
+    <div class="col-6 col-sm-2 name">Hazard category</div>
+    <div class="col-6 col-sm-2 name">Is finished</div>
 </div>
 <div class="row">
-    <div class="col-6 col-sm-3">{{ item.Job.job }}</div>
-    <div class="col-6 col-sm-3">{{ item.Job.team_leader }}</div>
-    <div class="col-6 col-sm-3">{{ item.Job.collaborators }}</div>
+    <div class="col-6 col-sm-2">{{ item.Job.job }}</div>
+    <div class="col-6 col-sm-2">{{ item.User.surname }} {{ item.User.name }}</div>
+    <div class="col-6 col-sm-2">{{ item.Job.work_size }} Hours</div>
+    <div class="col-6 col-sm-2">{{ item.Job.collaborators }}</div>
+    <div class="col-6 col-sm-2">{{ item.</div>
     {% if item.Job.is_finished %}
-    <div class="col-6 col-sm-3">Is finished</div>
+    <div class="col-6 col-sm-2">Is finished</div>
     {% else %}
-    <div class="col-6 col-sm-3">Is not finished</div>
+    <div class="col-6 col-sm-2">Is not finished</div>
     {% endif %}
 </div>
 {% if current_user.is_authenticated and (current_user.id == item.Job.team_leader or current_user.id == 1) %}

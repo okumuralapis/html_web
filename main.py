@@ -107,7 +107,7 @@ def add_job():
 
 @app.route('/job/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_news(id):
+def edit_job(id):
     form = RegisterForm_job()
     if request.method == "GET":
         db_sess = db_session.create_session()
@@ -139,6 +139,21 @@ def edit_news(id):
     return render_template('reg_job.html',
                            title='Редактирование работы',
                            form=form)
+
+
+@app.route('/job_delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def job_delete(id):
+    db_sess = db_session.create_session()
+    jobs = db_sess.query(Job).filter(Job.id == id,
+                                     Job.user == current_user
+                                     ).first()
+    if jobs:
+        db_sess.delete(jobs)
+        db_sess.commit()
+    else:
+        abort(404)
+    return redirect('/')
 
 
 if __name__ == '__main__':

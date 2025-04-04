@@ -23,12 +23,16 @@
     <div class="col-6 col-sm-3">Is not finished</div>
     {% endif %}
 </div>
-{% if current_user.is_authenticated and current_user == item.job %}
-    <div>
-        <a href="/job/{{ item.id }}" class="btn btn-warning">
-            Change
-        </a>
-    </div>
+{% if current_user.is_authenticated and (current_user.id == item.Job.team_leader or current_user.id == 1) %}
+<div>
+    <a href="/job/{{ item.Job.id }}" class="btn btn-warning">
+        Edit Job
+    </a>
+    <a href="/job_delete/{{ item.Job.id }}" class="btn btn-danger">
+        Delete Job
+    </a>
+
+</div>
 {% endif %}
 {% endfor %}
 {% endblock %}

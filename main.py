@@ -133,7 +133,7 @@ def edit_job(id):
                                         ).first()
         if job and (current_user.id == 1 or current_user.id == job.team_leader):
             job.job = form.job.data
-            job.team_leader = form.job.data
+            job.team_leader = form.team_leader.data
             job.work_size = form.work_size.data
             job.collaborators = form.collaborators.data
             job.is_finished = form.is_finished.data

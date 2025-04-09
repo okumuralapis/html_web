@@ -2,6 +2,7 @@ from data import db_session
 from data.departments import Department
 from data.users import User
 from data.jobs import Job
+from data.category import Category
 from forms.user import RegisterForm_user, LoginForm_user
 from forms.job import RegisterForm_job
 from forms.department import RegisterForm_dep

@@ -17,5 +17,7 @@ class Job(SqlAlchemyBase):
     start_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     end_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, nullable=False)
-
+    category = sqlalchemy.Column(sqlalchemy.Integer,
+                                 sqlalchemy.ForeignKey('category.id'))
     user = orm.relationship('User')
+    category_rel = orm.relationship('Category', back_populates='job')

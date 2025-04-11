@@ -1,27 +1,27 @@
 from requests import post, get, delete
 
-print(get('http://localhost:5000/api/v2/users').json())  # получение всех модулей
+print(get('http://localhost:5000/api/v2/jobs').json())  # получение всех работ
 
 # тестирование get
-print(get('http://localhost:5000/api/v2/users/1').json())  # верный первый пользователь
-print(get('http://localhost:5000/api/v2/users/hehe').json())  # неверный/строка
-print(get('http://localhost:5000/api/v2/users/123').json())  # неверный/нет пользователя
+print(get('http://localhost:5000/api/v2/jobs/1').json())  # верная работа
+print(get('http://localhost:5000/api/v2/jobs/hehe').json())  # неверный/строка
+print(get('http://localhost:5000/api/v2/jobs/123').json())  # неверный/не существующий ид
 
 # тестирование post
-print(post('http://localhost:5000/api/v2/users', json={}).json())
-print(post('http://localhost:5000/api/v2/users',
-           json={'name': 'hehehe'}).json())
-print(post('http://localhost:5000/api/v2/users',
-           json={'surname': 'Heh',
-                 'name': 'Hih',
-                 'speciality': 'friend of a clown',
-                 'position': 'clown',
-                 'email': 'hihihaha@mail.ru',
-                 'password': 'hihihaha67'}).json())
+print(post('http://localhost:5000/api/v2/jobs', json={}).json())
+print(post('http://localhost:5000/api/v2/jobs',
+           json={'title': 'hehehe'}).json())
+print(post('http://localhost:5000/api/v2/jobs',
+           json={'team_leader': 1,
+                 'job': 'Clowning',
+                 'work_size': 30,
+                 'collaborators': '1 2 3',
+                 'is_finished': True,
+                 'category': 2}).json())
 
 # тестирование delete
-print(delete('http://localhost:5000/api/v2/users/1').json())  # верный первый пользователь
-print(delete('http://localhost:5000/api/v2/users/hehe').json())  # неверный/строка
-print(delete('http://localhost:5000/api/v2/users/123').json())  # неверный/нет пользователя
+print(delete('http://localhost:5000/api/v2/jobs/1').json())  # верная работа
+print(delete('http://localhost:5000/api/v2/jobs/hehe').json())  # неверный/строка
+print(delete('http://localhost:5000/api/v2/jobs/123').json())  # неверный/не существующий ид
 
-print(get('http://localhost:5000/api/v2/users').json())
+print(get('http://localhost:5000/api/v2/jobs').json())
